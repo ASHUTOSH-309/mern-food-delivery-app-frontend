@@ -1,5 +1,5 @@
 
-import {  Auth0Provider, User } from "@auth0/auth0-react";
+import {  AppState, Auth0Provider } from "@auth0/auth0-react";
 import { useNavigate } from "react-router-dom";
 
 
@@ -25,12 +25,12 @@ const Auth0ProviderWithNavigate = ({ children }: Props) => {
         throw new Error("unable to initialize auth")
     }
 
-    const onRedirectCallback = ( user?: User) => {
+    const onRedirectCallback = ( appState?: AppState) => {
         //this function will create the user in our databse
 
-        console.log("USER", user);
+    
 
-        navigate("auth-callback")
+        navigate( appState?.returnTo || "/auth-callback")
 
 
     }
