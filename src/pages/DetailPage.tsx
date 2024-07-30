@@ -64,6 +64,22 @@ const addToCart = (menuItem: MenuitemType) => {
     });
   };
 
+  const removeFromCart = (cartItem: CartItem) => {
+    setCartItems((prevCartItems) => {
+      const updatedCartItems = prevCartItems.filter(
+        (item) => cartItem._id !== item._id
+      );
+
+      sessionStorage.setItem(
+        `cartItems-${restaurantId}`,
+        JSON.stringify(updatedCartItems)
+      );
+
+      return updatedCartItems;
+    });
+  };
+
+
 if(isLoading || !restaurant){
     return "Loading..."
 }
@@ -96,7 +112,7 @@ return (
 
                     <Card>
 
-                            <OrderSummary restaurant={restaurant} cartItems={cartItems}  />
+                            <OrderSummary restaurant={restaurant} cartItems={cartItems}  removeFromCart={removeFromCart} />
 
 
                     </Card>
